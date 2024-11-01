@@ -26,6 +26,7 @@ fn main() -> eyre::Result<()> {
     let (key, cert) = get_key_and_cert();
     // dbg!(&cert);
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    println!("Listening on 127.0.0.1:7878");
 
     for stream in listener.incoming() {
         let mut stream = stream.unwrap();
