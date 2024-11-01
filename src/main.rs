@@ -24,9 +24,18 @@ struct Payload {
 
 fn main() -> eyre::Result<()> {
     let (key, cert) = get_key_and_cert();
+
+    println!("test REVM tx: simulate(Payload)");
+
+    simulate(Payload {
+        sender: "0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5".parse()?,
+        amount: U256::from(123_000_000),
+    })?;
+
     // dbg!(&cert);
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     println!("Listening on 127.0.0.1:7878");
+
 
     for stream in listener.incoming() {
         let mut stream = stream.unwrap();
