@@ -32,6 +32,8 @@ fn main() -> eyre::Result<()> {
         let mut buf = vec![];
         let _num_bytes = stream.read_to_end(&mut buf)?;
         let data: Payload = serde_json::from_slice(&buf)?;
+        println!("recv: sender: {}", data.sender);
+        println!("recv: amount: {}", data.amount);
         simulate(data)?;
 
         // TODO: Re-enable this,
