@@ -1,0 +1,19 @@
+[package]
+name = "sgx-revm"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+alloy-primitives = { version = "0.3.3", features = ["serde"] }
+revm = { version = "14.0.1", default-features = false, features = ["std", "blst", "portable"] }
+
+# Necessary for setting up the TLS connection.
+mbedtls = { version = "0.12.3", features=["std", "ssl", "x509", "rdrand"] }
+chrono = "0.4.0"
+
+# Misc
+eyre = "0.6.8"
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.105"
