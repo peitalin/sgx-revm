@@ -64,7 +64,7 @@ fn simulate(payload: Payload) -> eyre::Result<()> {
 
     evm.env.tx = TxEnv {
         caller: address,
-        transact_to: revm::primitives::TransactTo::Call(B160::from(receiver.0 .0)),
+        transact_to: revm::primitives::TransactTo::Call(B160::from(receiver.0.0)),
         value,
         ..Default::default()
     };
