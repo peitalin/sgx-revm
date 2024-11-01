@@ -77,7 +77,7 @@ cargo run --release --target x86_64-fortanix-unknown-sgx
 On another terminal:
 ```
 nc localhost 7878
-{ "sender": "0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5", "amount": 40 }
+{ "sender": "0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5", "amount": 155 }
 ```
 
 Then CTRL+C to close the netcat session, and you'll see on the first terminal that the simulation has completed, without the host ever knowing what happened!
