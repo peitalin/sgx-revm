@@ -24,7 +24,7 @@ use std::sync::Arc;
 const RSA_KEY_SIZE: u32 = 3072;
 const RSA_KEY_EXP: u32 = 0x10001;
 const DAYS_TO_SES: u64 = 86400;
-const CERT_VAL_SECS: u64 = (365 * DAYS_TO_SES);
+const CERT_VAL_SECS: u64 = 365 * DAYS_TO_SES;
 
 // /// Establish a TLS connection with a randomly generated key and
 // /// a self signed certificate.

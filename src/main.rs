@@ -1,7 +1,12 @@
 use alloy_primitives::{Address, U256};
 use revm::{
-    primitives::{AccountInfo, TxEnv, B160},
-    InMemoryDB, EVM,
+    primitives::{AccountInfo, TxEnv},
+    InMemoryDB,
+    Evm,
+    db::EmptyDB,
+    Context,
+    EvmContext,
+    inspectors::NoOpInspector,
 };
 
 use std::{io::Read, net::TcpListener};
@@ -55,21 +60,24 @@ fn simulate(payload: Payload) -> eyre::Result<()> {
     // For storage insertions:
     // db.insert_account_storage(address, slot, value)
 
-    // Setup the EVM with the configured DB
-    // The EVM will ONLY be able to access the witnessed state, and
-    // any simulation that tries to use state outside of the provided data
-    // will fail.
-    let mut evm = EVM::new();
-    evm.database(db);
-
-    evm.env.tx = TxEnv {
+    let tx_env= TxEnv {
         caller: address,
-        transact_to: revm::primitives::TransactTo::Call(B160::from(receiver.0.0)),
+        transact_to: revm::primitives::TransactTo::Call(revm::primitives::Address::from(receiver.0.0)),
         value,
         ..Default::default()
     };
 
-    let result = evm.transact_ref()?;
+    // Setup the EVM with the configured DB
+    // The EVM will ONLY be able to access the witnessed state, and
+    // any simulation that tries to use state outside of the provided data
+    // will fail.
+    // let mut evm = Evm::new();
+    let mut evm = Evm::builder()
+        .with_db(db)
+        .with_tx_env(tx_env)
+        .build();
+
+    let result = evm.transact()?;
 
     assert_eq!(
         result.state.get(&address).unwrap().info.balance,
