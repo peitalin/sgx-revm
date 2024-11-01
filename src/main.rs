@@ -29,7 +29,7 @@ fn main() -> eyre::Result<()> {
 
     simulate(Payload {
         sender: "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97".parse()?,
-        amount: U256::from(123),
+        amount: U256::from(155),
     })?;
 
     // dbg!(&cert);
@@ -58,7 +58,7 @@ fn simulate(payload: Payload) -> eyre::Result<()> {
     let receiver = payload.sender;
     let value = payload.amount;
 
-    let balance = U256::from(111_000_000);
+    let balance = U256::from(500);
     // this is a random address
     let address = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97".parse()?;
     let info = AccountInfo {
@@ -93,7 +93,7 @@ fn simulate(payload: Payload) -> eyre::Result<()> {
 
     assert_eq!(
         result.state.get(&address).unwrap().info.balance,
-        U256::from(69)
+        U256::from(345)
     );
 
     dbg!(&result);
