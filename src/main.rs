@@ -28,8 +28,8 @@ fn main() -> eyre::Result<()> {
     println!("test REVM tx: simulate(Payload)");
 
     simulate(Payload {
-        sender: "0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5".parse()?,
-        amount: U256::from(123_000_000),
+        sender: "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97".parse()?,
+        amount: U256::from(123),
     })?;
 
     // dbg!(&cert);
@@ -58,7 +58,7 @@ fn simulate(payload: Payload) -> eyre::Result<()> {
     let receiver = payload.sender;
     let value = payload.amount;
 
-    let balance = U256::from(111);
+    let balance = U256::from(111_000_000);
     // this is a random address
     let address = "0x4838b106fce9647bdf1e7877bf73ce8b0bad5f97".parse()?;
     let info = AccountInfo {
